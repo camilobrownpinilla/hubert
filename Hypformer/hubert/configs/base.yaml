@@ -1,0 +1,91 @@
+wandb:
+  project: HUBERT
+  entity: harvardml
+  run_name: HUBERT-new-loader
+
+seed: 220
+
+#TODO: add save every n steps param
+max_duration: 488400 
+batch_size: 8
+microbatch_size: 2
+
+validation_interval: 500
+log_interval: 10
+
+save_folder: ${oc.env:CHECKPOINTS_PATH,../ckpts}/${wandb.run_name}
+save_overwrite: true
+save_interval: 5000
+load_path: null 
+
+which_model: hubert # one of [hubert, hf_model]
+
+hypformer:
+  k_in: .5
+  k_out: .5
+  decoder_type: euc
+  add_positional_encoding: true
+  attention_type: full
+  power_k: 2
+  trans_heads_concat: false
+
+optimizer:
+  optimizer_type: adamW
+  hyp_optimizer_type: radam
+  weight_decay: 0.033
+  hyp_weight_decay: 0.05
+  lr: 0.0001
+  hyp_lr: 0.0001
+  eps: 1e-15
+  betas:
+  - 0.9
+  - 0.999
+
+max_grad_norm: 1.0
+
+scheduler:
+  name: cosine_with_warmup
+  t_warmup: 10000
+  alpha_f: 0.1
+
+hubert:
+  hidden_dim: 768
+  n_heads: 6
+  n_layers: 6
+  model_max_len: 512
+  dropout: 0.1
+  max_position_embeddings: 512
+  eos_token_id: 0 # Might need to change these if you use a different tokenizer
+  pad_token_id: 1
+
+hf_model:
+  identifier: "distilbert/distilroberta-base"
+  model_max_len: 512
+  eos_token_id: 0 # Might need to change these if you use a different tokenizer
+  pad_token_id: 1
+
+data:
+  paths: pretrain
+  pad_direction: right
+  num_workers: 8
+  prefetch_factor: 8
+  drop_last: true
+  pin_memory: true
+  persistent_workers: true
+  generate_attention_mask: true
+  timeout: 0
+
+eval:
+  paths: eval
+  num_workers: 8
+  prefetch_factor: 8
+  drop_last: true
+  pin_memory: true
+  persistent_workers: true
+  generate_attention_mask: true
+  timeout: 0
+  num_eval_batches: 100
+
+
+tokenizer:
+  identifier: allenai/eleuther-ai-gpt-neox-20b-pii-special

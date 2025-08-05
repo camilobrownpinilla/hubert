@@ -1,0 +1,9 @@
+wandb:
+  run_name: Score-hubert-cond
+
+batch_size: 32
+
+data:
+  paths: score
+
+load_path: hubert_conditional

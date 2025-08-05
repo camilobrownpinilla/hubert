@@ -1,0 +1,7 @@
+wandb:
+  project: HUBERT
+  entity: harvardml
+  run_name: roBERTa-new-dataloader-h100
+
+
+which_model: hf_model

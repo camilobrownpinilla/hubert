@@ -1,0 +1,9 @@
+wandb:
+  project: HUBERT
+  entity: harvardml
+  run_name: resume-HUBERT
+
+load_path: hubert-resume
+
+scheduler:
+  t_warmup: 1000

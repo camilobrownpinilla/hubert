@@ -1,0 +1,16 @@
+wandb:
+  project: HUBERT
+  entity: harvardml
+  run_name: finetune-roBERTa
+
+load_path: roberta
+
+which_model: hf_model
+
+max_duration: 6100
+
+data:
+  paths: finetune
+
+optimizer:
+  lr: 0.003
